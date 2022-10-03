@@ -1,0 +1,6 @@
+build:
+  cmake-ext: True
+  depends:
+    - rcutils
+    - rosidl_typesupport
+    - rosidl_typesupport_microxrcedds
