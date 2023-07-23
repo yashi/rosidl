@@ -39,15 +39,18 @@ function(rosidl_adapt_interfaces idl_var arguments_file)
 
   find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
+  cmake_path(GET CMAKE_CURRENT_FUNCTION_LIST_DIR PARENT_PATH WORKING_DIR)
+
   set(idl_output "${CMAKE_CURRENT_BINARY_DIR}/rosidl_adapter/${ARG_TARGET}.idls")
   set(cmd
     "${Python3_EXECUTABLE}" -m rosidl_adapter
-    --package-name ${PROJECT_NAME}
+    --package-name ${ARG_TARGET}
     --arguments-file "${arguments_file}"
-    --output-dir "${CMAKE_CURRENT_BINARY_DIR}/rosidl_adapter/${PROJECT_NAME}"
+    --output-dir "${CMAKE_CURRENT_BINARY_DIR}/rosidl_adapter/${ARG_TARGET}"
     --output-file "${idl_output}")
   execute_process(
     COMMAND ${cmd}
+    WORKING_DIRECTORY ${WORKING_DIR}
     OUTPUT_QUIET
     ERROR_VARIABLE error
     RESULT_VARIABLE result
